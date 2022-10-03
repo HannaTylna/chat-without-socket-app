@@ -2,12 +2,15 @@ import express, { Application, json, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { setupMongoDb } from "./models/messages-repository";
+import messageRoute from "./routes/message-route";
 
 dotenv.config();
 
 const app: Application = express();
 app.use(cors());
 app.use(json());
+
+app.use("/chat", messageRoute);
 
 const port: number = parseInt(process.env.SERVER_PORT || "3001");
 const mongoUrl: string =
