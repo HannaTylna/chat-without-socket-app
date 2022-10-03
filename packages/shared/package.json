@@ -1,12 +1,12 @@
 {
-  "name": "@chat-setInt-app/shared",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/message-item.ts",
-  "scripts": {
-    "build": "tsc"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "@chat-setInt-app/shared",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/message-item.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }
