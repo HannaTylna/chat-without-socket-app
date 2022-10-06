@@ -1,24 +1,29 @@
-import MessageItem from "@chat-setInt-app/shared";
+import { Message } from "@chat-setInt-app/shared";
 import { model, Schema, connect } from "mongoose";
 
 const MessageSchema = new Schema({
-    text: String,
-    timeStamp: Date,
+    user: {
+        type: {
+            user_id: String,
+            name: String,
+            username: String,
+        },
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    timeStamps: Date,
 });
 
-const MessageModel = model<MessageItem>("MessageItem", MessageSchema);
+const MessageModel = model<Message>("MessageItem", MessageSchema);
 
-export const setupMongoDb = async (url: string) => {
-    await connect(url);
-};
-
-export const loadAllMessageItems = async (): Promise<MessageItem[]> => {
+export const loadAllMessageItems = async (): Promise<Message[]> => {
     return MessageModel.find({}).exec();
 };
 
-export const saveMessageItem = async (
-    messageItem: MessageItem
-): Promise<void> => {
+export const saveMessageItem = async (messageItem: Message): Promise<void> => {
     const newModel = new MessageModel(messageItem);
     newModel.save();
 };
