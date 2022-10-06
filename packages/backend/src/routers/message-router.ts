@@ -1,14 +1,14 @@
-import MessageItem from "@chat-setInt-app/shared";
+import { Message } from "@chat-setInt-app/shared";
 import express, { Request, Response } from "express";
 import { saveMessage, loadMessages } from "../services/messages-service";
 
-const MessageRoute = express.Router();
+const MessageRouter = express.Router();
 
-MessageRoute.get("/", async (req: Request, res: Response<MessageItem[]>) => {
+MessageRouter.get("/", async (req: Request, res: Response<Message[]>) => {
     res.send(await loadMessages());
 });
 
-MessageRoute.post("/", async (req: Request, res: Response<MessageItem[]>) => {
+MessageRouter.post("/", async (req: Request, res: Response<Message[]>) => {
     try {
         res.send(await saveMessage(req.body));
     } catch (err) {
@@ -16,4 +16,4 @@ MessageRoute.post("/", async (req: Request, res: Response<MessageItem[]>) => {
     }
 });
 
-export default MessageRoute;
+export default MessageRouter;
