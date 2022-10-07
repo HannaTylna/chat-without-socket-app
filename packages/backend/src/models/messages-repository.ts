@@ -1,5 +1,5 @@
 import { Message } from "@chat-setInt-app/shared";
-import { model, Schema, connect } from "mongoose";
+import { model, Schema } from "mongoose";
 
 const MessageSchema = new Schema({
     user: {
