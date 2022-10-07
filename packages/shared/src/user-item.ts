@@ -1,7 +1,8 @@
-export interface User extends Document {
-    name: string;
-    username: string;
+export interface User {
+    _id?: string;
+    mail: string;
+    username?: string;
     password: string;
     isAdmin?: boolean;
-    status: "offline" | "online";
+    //status: "offline" | "online";
 }
