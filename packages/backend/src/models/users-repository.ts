@@ -1,8 +1,9 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import { User } from "@chat-setInt-app/shared";
+import bcrypt from "bcrypt";
 
-const UserSchema = new Schema({
-    mail: {
+const User = new Schema({
+    email: {
         type: String,
         require: true,
         unique: true,
@@ -22,14 +23,14 @@ const UserSchema = new Schema({
         type: String,
         default: "offline",
     },
-    timeStamp: Date,
 });
 
-const UserModel = mongoose.model<User>("User", UserSchema);
+const UserModel = model<User>("User", User);
 
-export const createUser = async (user: User): Promise<User> => {
+export const saveUser = async (user: User): Promise<void> => {
     const newUser = new UserModel(user);
-    newUser._id = new Types.ObjectId().toString();
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(user.password, salt);
     newUser.save();
-    return newUser;
 };
+export default { UserModel, User };
