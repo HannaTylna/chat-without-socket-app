@@ -4,5 +4,5 @@ export interface User {
     username?: string;
     password: string;
     isAdmin?: boolean;
-    //status: "offline" | "online";
+    status: "offline" | "online";
 }
