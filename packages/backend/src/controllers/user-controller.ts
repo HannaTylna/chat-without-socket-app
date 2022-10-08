@@ -1,8 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express-serve-static-core";
+import { getErrorMessage } from "../utils/errors";
+import * as userServices from "../services/user-service";
 
-const createUser = (req: Request, res: Response) => {
-    const { name, username, password } = req.body;
-    res.sendStatus(200);
+export const registerOne = async (req: Request, res: Response) => {
+    try {
+        res.send(await userServices.register(req.body));
+    } catch (error) {
+        return res.status(500).send(getErrorMessage(error));
+    }
 };
-
-export default { createUser };
