@@ -3,9 +3,8 @@ import { saveUser } from "../models/users-repository";
 
 export const register = async (user: User): Promise<void> => {
     if (!(user.email && user.password)) {
-        throw new Error("Data not formatted properly");
+        throw new Error("Enter email and password!");
     }
     const newUser = await saveUser(user);
-
     return newUser;
 };

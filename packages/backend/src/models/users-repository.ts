@@ -33,4 +33,4 @@ export const saveUser = async (user: User): Promise<void> => {
     newUser.password = await bcrypt.hash(user.password, salt);
     newUser.save();
 };
-export default { UserModel, User };
+export default UserModel;
