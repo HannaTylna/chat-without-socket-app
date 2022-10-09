@@ -1,12 +1,10 @@
-import MessageItem from "@chat-setInt-app/shared";
+import { Message } from "@chat-setInt-app/shared";
 import {
     saveMessageItem,
     loadAllMessageItems,
 } from "../models/messages-repository";
 
-export const saveMessage = async (
-    messageItem: MessageItem
-): Promise<MessageItem[]> => {
+export const saveMessage = async (messageItem: Message): Promise<Message[]> => {
     if (!messageItem.text || messageItem.text == "") {
         throw new Error("Write something!");
     }
@@ -15,6 +13,6 @@ export const saveMessage = async (
     return await loadAllMessageItems();
 };
 
-export const loadMessages = async (): Promise<MessageItem[]> => {
+export const loadMessages = async (): Promise<Message[]> => {
     return await loadAllMessageItems();
 };
