@@ -1,6 +1,9 @@
 import { User } from "@chat-setInt-app/shared";
 import UserModel, { saveUser } from "../models/users-repository";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const secret: string = process.env.JWT_TOKEN || "your_jwt_secret";
 
 export const register = async (user: User): Promise<void> => {
     if (!(user.email && user.password)) {
@@ -21,7 +24,15 @@ export const login = async (user: User): Promise<User> => {
         const isMatch = bcrypt.compareSync(user.password, foundUser.password);
 
         if (isMatch) {
-            return foundUser;
+            const token = jwt.sign(
+                { _id: foundUser._id?.toString(), email: foundUser.email },
+                secret,
+                {
+                    expiresIn: "1800s",
+                }
+            );
+            console.log(token);
+            return user;
         } else {
             throw new Error("Password is not correct!");
         }
