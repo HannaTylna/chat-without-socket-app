@@ -1,13 +1,10 @@
 import { Message } from "@chat-setInt-app/shared";
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
-const MessageSchema = new Schema({
+const MessageSchema = new mongoose.Schema({
     user: {
-        type: {
-            user_id: String,
-            name: String,
-            username: String,
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserModel",
         required: true,
     },
     content: {
@@ -17,7 +14,7 @@ const MessageSchema = new Schema({
     timeStamps: Date,
 });
 
-const MessageModel = model<Message>("MessageItem", MessageSchema);
+const MessageModel = mongoose.model<Message>("MessageItem", MessageSchema);
 
 export const loadAllMessageItems = async (): Promise<Message[]> => {
     return MessageModel.find({}).exec();
