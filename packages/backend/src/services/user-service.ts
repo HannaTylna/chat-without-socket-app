@@ -46,7 +46,7 @@ export const login = async (user: User): Promise<any> => {
 export const getUser = async (user: User) => {
     try {
         const currentUser = await UserModel.findOne({
-            id: user._id,
+            email: user.email,
         });
         return currentUser;
     } catch (error) {
