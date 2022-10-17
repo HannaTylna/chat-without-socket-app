@@ -8,5 +8,7 @@ UserRouter.post("/register", userController.register);
 
 UserRouter.post("/login", userController.login);
 
+UserRouter.get("/user/:id", auth, userController.profile);
+
 UserRouter.patch("/user", auth, userController.update);
 export default UserRouter;
