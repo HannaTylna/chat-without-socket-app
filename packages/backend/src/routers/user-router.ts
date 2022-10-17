@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import * as userController from "../controllers/user-controller";
 import { auth } from "../middlewares/auth";
 
@@ -11,4 +11,5 @@ UserRouter.post("/login", userController.login);
 UserRouter.get("/user/:id", auth, userController.profile);
 
 UserRouter.patch("/user", auth, userController.update);
+
 export default UserRouter;
