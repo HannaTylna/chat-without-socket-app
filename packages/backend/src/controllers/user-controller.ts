@@ -31,15 +31,25 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const profile = async (req: Request, res: Response) => {
+    const user = req.body.user;
     try {
-        const foundUser = await userServices.getUser(req.body);
-        console.log(`The foundUser is ${req.body}`);
-        res.send(foundUser);
+        const foundUser = await userServices.getUser(user);
+        res.json(foundUser);
     } catch (error) {
         return res.status(500);
     }
 };
 
 export const update = async (req: Request, res: Response) => {
-    res.json("hello!");
+    const user = req.body.user;
+    const { email, username } = req.body;
+    const updateUser = await UserModel.findOneAndUpdate(
+        { _id: user._id },
+        {
+            username: username,
+            email: email,
+        },
+        { returnDocument: "after" }
+    );
+    res.status(200).json(updateUser);
 };
