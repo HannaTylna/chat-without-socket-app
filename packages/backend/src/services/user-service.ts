@@ -1,19 +1,22 @@
 import { User } from "@chat-setInt-app/shared";
-import UserModel, { saveUser } from "../models/users-repository";
+import { createUser, UserModel } from "../models/users-repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const secret: string = process.env.JWT_TOKEN || "your_jwt_secret";
 
-export const register = async (user: User): Promise<void> => {
-    if (!(user.email && user.password)) {
-        throw new Error("Enter email and password!");
+export const registerUser = async (user: User): Promise<void> => {
+    if (user.email == "" || !user.email) {
+        throw new Error("Enter email");
     }
-    const newUser = await saveUser(user);
-    return newUser;
+    if (user.password == "" || !user.password) {
+        throw new Error("Enter password");
+    }
+    const register = await createUser(user);
+    return register;
 };
 
-export const login = async (user: User): Promise<User> => {
+export const login = async (user: User): Promise<any> => {
     try {
         const foundUser = await UserModel.findOne({
             email: user.email,
@@ -28,14 +31,24 @@ export const login = async (user: User): Promise<User> => {
                 { _id: foundUser._id?.toString(), email: foundUser.email },
                 secret,
                 {
-                    expiresIn: "1800s",
+                    expiresIn: "24h",
                 }
             );
-            console.log(token);
-            return user;
+            return { user, token };
         } else {
             throw new Error("Password is not correct!");
         }
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getUser = async (user: User) => {
+    try {
+        const currentUser = await UserModel.findOne({
+            id: user._id,
+        });
+        return currentUser;
     } catch (error) {
         throw error;
     }
