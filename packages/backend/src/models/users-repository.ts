@@ -10,6 +10,7 @@ const User = new Schema({
     },
     username: {
         type: String,
+        require: true,
     },
     password: {
         type: String,
