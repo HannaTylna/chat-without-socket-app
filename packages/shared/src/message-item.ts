@@ -3,8 +3,7 @@ export interface Message {
     text: string;
     timeStamp: Date;
     user: {
-        user_id: string;
+        _id: string;
         username: string;
-        name: string;
     };
 }
